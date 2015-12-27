@@ -29,7 +29,7 @@ public class GameActivity extends AppCompatActivity {
     Bitmap secondCard;
     HashMap<Integer, Integer> cardAt = new HashMap<Integer,Integer>();
 
-    int maxPairs = 4;  //hardcoded for now :)
+    int maxPairs ;  //=4
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
 //      requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        maxPairs = getIntent().getExtras().getInt("maxPairs", 3);
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
         myImageAdapter = new ImageAdapter(this, maxPairs);
@@ -49,8 +50,11 @@ public class GameActivity extends AppCompatActivity {
     private void initialShuffle(){
 
         List<Integer> solution = new ArrayList<>();
-        for (int j = 0; j < maxPairs*2; j++)
+        for (int j = 0; j < maxPairs; j++){
             solution.add(j);
+            solution.add(j);
+        }
+
         int i = 0;
         Collections.shuffle(solution);
 

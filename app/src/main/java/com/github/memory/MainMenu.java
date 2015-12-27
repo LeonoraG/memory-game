@@ -13,10 +13,14 @@ import android.view.View;
 
 public class MainMenu extends AppCompatActivity {
 
+    //Max number of card pairs in game
+    int maxPairs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        maxPairs = 3;
     }
 
     @Override
@@ -32,7 +36,6 @@ public class MainMenu extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -41,8 +44,9 @@ public class MainMenu extends AppCompatActivity {
      * @param view
      */
     public void newGameClicked(View view) {
-
         Intent intent = new Intent(this, GameActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("maxPairs", maxPairs);
         startActivity(intent);
     }
     /**
@@ -50,9 +54,10 @@ public class MainMenu extends AppCompatActivity {
      * @param view
      */
     public void configureCardNumberClicked(View view) {
+        Intent intent = new Intent(this, CardNumberActivity.class);
+        intent.putExtra("maxPairs", maxPairs);
+        startActivityForResult(intent, 1);
 
-        //TODO
-        //open new activity
     }
 
     /**
@@ -62,9 +67,20 @@ public class MainMenu extends AppCompatActivity {
     public void exitApplicationClicked(View view) {
 
         Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-        homeIntent.addCategory( Intent.CATEGORY_HOME );
-        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        homeIntent.addCategory(Intent.CATEGORY_HOME);
         startActivity(homeIntent);
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        System.out.println("REQUEST CODE:" + requestCode);
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    maxPairs = data.getIntExtra("maxPairs",3);
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
