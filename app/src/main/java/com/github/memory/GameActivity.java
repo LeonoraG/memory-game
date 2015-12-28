@@ -4,12 +4,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,7 +20,7 @@ import java.util.List;
 /**
  * The activity containing the actual game play
  */
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements GameOverListener {
 
     private static final String TAG = GameActivity.class.getSimpleName();
     ImageAdapter myImageAdapter;
@@ -42,6 +44,7 @@ public class GameActivity extends AppCompatActivity {
         GridView gridview = (GridView) findViewById(R.id.gridview);
         myImageAdapter = new ImageAdapter(this, maxPairs);
         myImageAdapter.notifyDataSetChanged();
+        myImageAdapter.setGameOverListener(this);
         gridview.setAdapter(myImageAdapter);
         gridview.setOnItemClickListener(listener);
         initialShuffle();
@@ -111,6 +114,15 @@ public class GameActivity extends AppCompatActivity {
         else
             myImageAdapter.cardsNotMatched();
         numPressed = 0;
+    }
+
+    public void onGameOver(){
+        PlayAgainFragment alertFragment = new PlayAgainFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        Bundle args = new Bundle();
+        args.putInt("maxPairs", maxPairs);
+        alertFragment.setArguments(args);
+        alertFragment.show(fm, "Game over!");
     }
 
 }

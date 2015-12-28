@@ -45,7 +45,6 @@ public class MainMenu extends AppCompatActivity {
      */
     public void newGameClicked(View view) {
         Intent intent = new Intent(this, GameActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("maxPairs", maxPairs);
         startActivity(intent);
     }

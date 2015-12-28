@@ -13,6 +13,7 @@ public class ImageAdapter extends BaseAdapter {
     int maxPairs = 0;
     boolean gameOver = false;
     private Integer[] mThumbIds;
+    GameOverListener gameOverListener;
 
     public ImageAdapter(Context c, int maxPairs) {
         mContext = c;
@@ -75,7 +76,18 @@ public class ImageAdapter extends BaseAdapter {
             if(mThumbIds[i] != R.drawable.backside)
                 mThumbIds[i] = R.drawable.frontside;
         notifyDataSetChanged();
-        if(foundPairs == maxPairs)
-            gameOver = true;
+        if(foundPairs == maxPairs){
+            foundPairs = 0;
+            gameOverListener.onGameOver();
+        }
+
+
     }
+
+
+    public void setGameOverListener(GameOverListener gameOver) {
+        this.gameOverListener = gameOver;
+    }
+
+
 }
