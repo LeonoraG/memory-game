@@ -1,11 +1,30 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
     android:background="@drawable/blue">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tries"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="8dp"
+        android:padding="4dp"
+        android:background="#000000"
+        android:textColor="#FFFFFF" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timeElapsed"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp"
+        android:padding="4dp"
+        android:background="#000000"
+        android:textColor="#FFFFFF" />
 
 <GridView
+    android:layout_marginTop="40dp"
     android:id="@+id/gridview"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -16,4 +35,4 @@ android:orientation="vertical"
     android:stretchMode="columnWidth"
     android:gravity="center"/>
 
-</LinearLayout>
+</RelativeLayout>

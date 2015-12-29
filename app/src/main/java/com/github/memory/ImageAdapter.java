@@ -71,7 +71,7 @@ public class ImageAdapter extends BaseAdapter {
      */
     public void cardsNotMatched(){
         for(int i = 0; i < mThumbIds.length; ++i)
-            if(mThumbIds[i] != R.drawable.frontside && mThumbIds[i] != R.drawable.backside)
+            if(mThumbIds[i] != R.drawable.transparent && mThumbIds[i] != R.drawable.backside)
                 mThumbIds[i] = R.drawable.backside;
         notifyDataSetChanged();
     }

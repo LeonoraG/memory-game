@@ -9,16 +9,20 @@ import android.support.v4.app.DialogFragment;
 
 public class PlayAgainFragment extends DialogFragment {
     int maxPairs;
+    int numTries;
+    String finalSeconds;
+    String finalMinutes;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new AlertDialog.Builder(getActivity())
                 // Set Dialog Icon
-                .setIcon(R.mipmap.ic_launcher)
+                .setIcon(R.drawable.fireworks)
                         // Set Dialog Title
                 .setTitle("You won!")
                         // Set Dialog Message
-                .setMessage("What to do next?")
+                .setMessage("Time elapsed: " + finalMinutes + ":" + finalSeconds +
+                            " , number of tries: " + numTries)
 
                         // Positive button
                 .setPositiveButton("Play again", new DialogInterface.OnClickListener() {
@@ -52,5 +56,8 @@ public class PlayAgainFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         maxPairs = getArguments().getInt("maxPairs");
+        numTries = getArguments().getInt("numTries");
+        finalMinutes = getArguments().getString("finalMinutes");
+        finalSeconds = getArguments().getString("finalSeconds");
     }
 }
