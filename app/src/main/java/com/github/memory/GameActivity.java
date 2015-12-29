@@ -35,8 +35,6 @@ public class GameActivity extends AppCompatActivity implements GameOverListener 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//      requesting to turn the title OFF
-//      requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         maxPairs = getIntent().getExtras().getInt("maxPairs", 3);
@@ -70,18 +68,18 @@ public class GameActivity extends AppCompatActivity implements GameOverListener 
 
         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
              done = false;
-            if(numPressed == 0){
+            if(numPressed == 0 && (myImageAdapter.getResIdAt(position)!= R.drawable.transparent)){
                 int index = cardAt.get(position);
-                int resId = getResources().getIdentifier("sample_" + index, "drawable", getPackageName());
+                int resId = getResources().getIdentifier("card_" + index, "drawable", getPackageName());
                 firstCard = BitmapFactory.decodeResource(getResources(), resId);
                 myImageAdapter.updateImage(position, resId);
                 numPressed++;
                 done = true;
             }
 
-            if((numPressed == 1) && !done){
+            if((numPressed == 1) && !done && (myImageAdapter.getResIdAt(position)!= R.drawable.transparent)){
                 int index = cardAt.get(position);
-                int resId = getResources().getIdentifier("sample_" + index, "drawable", getPackageName());
+                int resId = getResources().getIdentifier("card_" + index, "drawable", getPackageName());
                 secondCard = BitmapFactory.decodeResource(getResources(), resId);
                 myImageAdapter.updateImage(position, resId);
                 Handler handler = new Handler();

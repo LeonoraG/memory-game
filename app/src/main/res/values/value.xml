@@ -3,5 +3,10 @@
     <integer name="int4">4</integer>
     <integer name="int6">6</integer>
     <integer name="int8">8</integer>
+    <integer name="int10">10</integer>
+    <integer name="int12">12</integer>
+    <integer name="int14">14</integer>
+    <integer name="int16">16</integer>
+    <integer name="int18">18</integer>
 
 </resources>

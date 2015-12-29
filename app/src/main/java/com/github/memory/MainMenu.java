@@ -70,8 +70,13 @@ public class MainMenu extends AppCompatActivity {
         startActivity(homeIntent);
     }
 
+    /**
+     * Used for processing the value from card number activity
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println("REQUEST CODE:" + requestCode);
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {

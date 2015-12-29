@@ -10,8 +10,7 @@ import android.widget.ImageView;
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
     int foundPairs = 0;
-    int maxPairs = 0;
-    boolean gameOver = false;
+    int maxPairs;
     private Integer[] mThumbIds;
     GameOverListener gameOverListener;
 
@@ -27,6 +26,17 @@ public class ImageAdapter extends BaseAdapter {
     public int getCount() { return mThumbIds.length; }
 
     public Object getItem(int position) { return null;}
+
+    /**
+     * Returns resource ID at the given position
+     * @param position
+     * @return
+     */
+    public Integer getResIdAt(int position){
+        if(position < mThumbIds.length)
+            return mThumbIds[position];
+        else return null;
+    }
 
     public long getItemId(int position) {
         return 0;
@@ -64,7 +74,6 @@ public class ImageAdapter extends BaseAdapter {
             if(mThumbIds[i] != R.drawable.frontside && mThumbIds[i] != R.drawable.backside)
                 mThumbIds[i] = R.drawable.backside;
         notifyDataSetChanged();
-
     }
 
     /**
@@ -74,7 +83,7 @@ public class ImageAdapter extends BaseAdapter {
         foundPairs++;
         for(int i = 0; i < mThumbIds.length; ++i)
             if(mThumbIds[i] != R.drawable.backside)
-                mThumbIds[i] = R.drawable.frontside;
+                mThumbIds[i] = R.drawable.transparent;
         notifyDataSetChanged();
         if(foundPairs == maxPairs){
             foundPairs = 0;
@@ -84,10 +93,11 @@ public class ImageAdapter extends BaseAdapter {
 
     }
 
-
+    /**
+     * Sets the listener for the end of the game
+     * @param gameOver
+     */
     public void setGameOverListener(GameOverListener gameOver) {
         this.gameOverListener = gameOver;
     }
-
-
 }
