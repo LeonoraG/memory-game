@@ -18,6 +18,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * The activity containing the actual game play
  */
@@ -39,6 +41,7 @@ public class GameActivity extends AppCompatActivity implements GameOverListener 
     long mStartTime;
     String finalSeconds = "";
     String finalMinutes = "";
+    String name;
     TextView mTimeLabel;
     TextView mCardLabel;
 
@@ -47,6 +50,7 @@ public class GameActivity extends AppCompatActivity implements GameOverListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         maxPairs = getIntent().getExtras().getInt("maxPairs", 3);
+        name = getIntent().getExtras().getString("name");
         GridView gridview = (GridView) findViewById(R.id.gridview);
         myImageAdapter = new ImageAdapter(this, maxPairs);
         myImageAdapter.notifyDataSetChanged();
@@ -61,6 +65,8 @@ public class GameActivity extends AppCompatActivity implements GameOverListener 
         mStartTime = System.currentTimeMillis();
         mHandler.removeCallbacks(mUpdateTimeTask);
         mHandler.postDelayed(mUpdateTimeTask, 100);
+
+
 
     }
 
@@ -145,6 +151,21 @@ public class GameActivity extends AppCompatActivity implements GameOverListener 
         args.putString("finalSeconds", finalSeconds);
         alertFragment.setArguments(args);
         mHandler.removeCallbacks(mUpdateTimeTask); //stop the time
+       DBAdapter db = new DBAdapter(this);
+        db.open();
+        long id= db.insertScore(name,parseInt(finalSeconds)+parseInt(finalMinutes)*60,numTries,maxPairs*2);
+        db.close();
+
+//        ContentValues values = new ContentValues();
+//        values.put("name", "ja");
+//        values.put("time",parseInt(finalSeconds)+parseInt(finalMinutes)*60 );
+//        values.put("tries", numTries);
+//        values.put("cardno", maxPairs*2);
+//        Uri uri = getContentResolver().insert(
+//                Uri.parse(
+//                        "content://hr.math.provider.contprov/books"),
+//                values);
+
         alertFragment.show(fm, "Game over!");
     }
 

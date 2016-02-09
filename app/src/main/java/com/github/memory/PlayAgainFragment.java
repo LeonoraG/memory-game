@@ -59,5 +59,8 @@ public class PlayAgainFragment extends DialogFragment {
         numTries = getArguments().getInt("numTries");
         finalMinutes = getArguments().getString("finalMinutes");
         finalSeconds = getArguments().getString("finalSeconds");
+
+
+
     }
 }

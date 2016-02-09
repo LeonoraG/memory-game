@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -13,6 +14,8 @@ import android.widget.RadioGroup;
 public class CardNumberActivity extends AppCompatActivity {
     int maxPairs;
     int copyOfMaxPairs;
+    String name;
+    String copyOfName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +24,8 @@ public class CardNumberActivity extends AppCompatActivity {
 
         maxPairs = getIntent().getExtras().getInt("maxPairs", 3);
         copyOfMaxPairs = maxPairs;
+        name = getIntent().getExtras().getString("name");
+        copyOfName = name;
 
         int resId = getResources().getIdentifier("RadioButtonID" + maxPairs*2, "id", getPackageName());
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroupID);
@@ -58,6 +63,9 @@ public class CardNumberActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, MainMenu.class);
         intent.putExtra("maxPairs", maxPairs);
+        EditText et = (EditText)findViewById(R.id.nameInput);
+        name = et.getText().toString();
+        intent.putExtra("name", name);
         System.out.println("prije: " + maxPairs);
         setResult(RESULT_OK, intent);
         finish();
@@ -70,6 +78,7 @@ public class CardNumberActivity extends AppCompatActivity {
     public void cancelClicked(View view) {
         Intent intent = new Intent(this, MainMenu.class);
         intent.putExtra("maxPairs", copyOfMaxPairs);
+        intent.putExtra("name", copyOfName);
         setResult(RESULT_OK, intent);
         finish();
     }

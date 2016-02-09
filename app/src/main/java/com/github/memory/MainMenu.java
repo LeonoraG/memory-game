@@ -15,12 +15,15 @@ public class MainMenu extends AppCompatActivity {
 
     //Max number of card pairs in game
     int maxPairs;
+    String name = "Ja";
+    final DBAdapter db = new DBAdapter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         maxPairs = 3;
+
     }
 
     @Override
@@ -46,8 +49,20 @@ public class MainMenu extends AppCompatActivity {
     public void newGameClicked(View view) {
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("maxPairs", maxPairs);
+        intent.putExtra("name", name);
         startActivity(intent);
     }
+
+    /**
+     * Opens highscore view
+     * @param view
+     */
+    public void highscoreClicked(View view) {
+        Intent intent = new Intent(this, StatsActivity.class);
+        intent.putExtra("maxPairs", maxPairs);
+        startActivity(intent);
+    }
+
     /**
      * Opens the settings for number of cards
      * @param view
@@ -55,6 +70,7 @@ public class MainMenu extends AppCompatActivity {
     public void configureCardNumberClicked(View view) {
         Intent intent = new Intent(this, CardNumberActivity.class);
         intent.putExtra("maxPairs", maxPairs);
+        intent.putExtra("name", name);
         startActivityForResult(intent, 1);
 
     }
@@ -81,6 +97,7 @@ public class MainMenu extends AppCompatActivity {
             case 1:
                 if (resultCode == RESULT_OK) {
                     maxPairs = data.getIntExtra("maxPairs",3);
+                    name = data.getStringExtra("name");
                 }
                 break;
             default:
