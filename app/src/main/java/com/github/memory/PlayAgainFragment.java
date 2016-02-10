@@ -12,6 +12,7 @@ public class PlayAgainFragment extends DialogFragment {
     int numTries;
     String finalSeconds;
     String finalMinutes;
+    String name;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class PlayAgainFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(getActivity(), GameActivity.class);
                         intent.putExtra("maxPairs", maxPairs);
+                        intent.putExtra("name",name);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         getActivity().finish();
@@ -46,6 +48,7 @@ public class PlayAgainFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(getActivity(), MainMenu.class);
                         intent.putExtra("maxPairs", maxPairs);
+                        intent.putExtra("name",name);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         getActivity().finish();
@@ -59,7 +62,7 @@ public class PlayAgainFragment extends DialogFragment {
         numTries = getArguments().getInt("numTries");
         finalMinutes = getArguments().getString("finalMinutes");
         finalSeconds = getArguments().getString("finalSeconds");
-
+        name = getArguments().getString("name");
 
 
     }

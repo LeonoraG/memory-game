@@ -66,8 +66,6 @@ public class GameActivity extends AppCompatActivity implements GameOverListener 
         mHandler.removeCallbacks(mUpdateTimeTask);
         mHandler.postDelayed(mUpdateTimeTask, 100);
 
-
-
     }
 
     private void initialShuffle(){
@@ -149,6 +147,7 @@ public class GameActivity extends AppCompatActivity implements GameOverListener 
         args.putInt("numTries", numTries);
         args.putString("finalMinutes", finalMinutes);
         args.putString("finalSeconds", finalSeconds);
+        args.putString("name", name);
         alertFragment.setArguments(args);
         mHandler.removeCallbacks(mUpdateTimeTask); //stop the time
        DBAdapter db = new DBAdapter(this);
@@ -176,7 +175,7 @@ public class GameActivity extends AppCompatActivity implements GameOverListener 
             int seconds = (int) (millis / 1000);
             int minutes = seconds / 60;
             seconds     = seconds % 60;
-            Log.d(TAG, "Koliko ");
+
             if (seconds < 10) {
                 mTimeLabel.setText("" + minutes + ":0" + seconds);
                 finalSeconds = "0"+seconds;
@@ -186,7 +185,6 @@ public class GameActivity extends AppCompatActivity implements GameOverListener 
             }
             finalMinutes = minutes+"";
 
-           // mTimeLabel.setText("iiiiiiiiiiie");
 
             mHandler.postDelayed(mUpdateTimeTask, 100);
         }

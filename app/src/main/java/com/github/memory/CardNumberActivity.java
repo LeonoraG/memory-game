@@ -27,6 +27,9 @@ public class CardNumberActivity extends AppCompatActivity {
         name = getIntent().getExtras().getString("name");
         copyOfName = name;
 
+        EditText edt = (EditText)findViewById(R.id.nameInput);
+        edt.setText(name);
+
         int resId = getResources().getIdentifier("RadioButtonID" + maxPairs*2, "id", getPackageName());
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroupID);
         radioGroup.check(resId);
